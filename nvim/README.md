@@ -33,8 +33,8 @@ Also it may change in the future. Who knows!
 `cp -r nvim ~/.config/nvim` 
 - Succes!
   
-Why the complicated git clone?
-I wanted to be able to download just this github folder: /dotfiles/nvim and not everything/
-Well, this downloads the entire repo, but only metadata, so it doesn't take space or bandwith
-and then it downloads only the nvim folder!
+Why the complicated git clone? <br>
+I wanted to be able to download just this github folder: `/dotfiles/nvim` and not everything <br> 
+Well, this downloads the entire repo, but only metadata, so it doesn't take space or bandwith <br> 
+and then it downloads only the nvim folder! <br> 
 Great success! 

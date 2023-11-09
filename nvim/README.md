@@ -26,7 +26,10 @@ Also it may change in the future. Who knows!
 `rm -rf ~/.config/nvim/.git`
 - Start Neovim! <br> 
 `nvim`
-- Ignore all the errors
+- It should look different already! <br>
+If not: check your steps
+- Ignore all the errors in vim
+> NOTE: If you have any errors before this that are in your command line, google the errors, they are not part of this guide. All errors should be in vim itself.
 - Download only this folder <br> 
 `git clone --filter=blob:none --sparse https://github.com/VeridisEst/dotfiles` <br>
 `cd dotfiles` <br>

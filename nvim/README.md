@@ -13,12 +13,11 @@ Also it may change in the future. Who knows!
 ## How to use 
 
 - Make a backup of your current Neovim files
->  # required
->  mv ~/.config/nvim{,.bak}
-> 
->  # optional but recommended
->  mv ~/.local/share/nvim{,.bak}
->  mv ~/.local/state/nvim{,.bak}
->  mv ~/.cache/nvim{,.bak}
+### required
+`mv ~/.config/nvim{,.bak}`
+### optional but recommended
+`mv ~/.local/share/nvim{,.bak}
+mv ~/.local/state/nvim{,.bak}
+mv ~/.cache/nvim{,.bak}`
 - Clone the starter
 >  git clone https://github.com/ 

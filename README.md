@@ -9,3 +9,9 @@ Moved computers too much and I like my things standard.
   When using outside of WSL try the nvim_other (only change is a clipboard dependency)
 - Debian startup script
 
+## How to use
+Every folder is a seperate dotfile <br>
+With a seperate installation instruction <br> 
+With a seperate goal/program <br> 
+There should be no inherent dependencies between folders <br>
+Use this to your advantage <br>

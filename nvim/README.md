@@ -26,6 +26,6 @@ mv ~/.cache/nvim{,.bak}`
 - Start Neovim! <br> 
 `nvim`
 - Ignore all the errors
-- Clone this dotfile to yours in: <br>  
+- Clone this dotfile to yours in: 
 `~/.config/nvim`
 - Succes! 

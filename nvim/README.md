@@ -11,14 +11,15 @@ It's not very different frome the standard, don't get me wrong. I mainly added a
 Also it may change in the future. Who knows! 
 
 ## How to use 
-
+- Install the latest version of nvim, this requires at least 0.9
+`https://github.com/neovim/neovim` has instructions
 - Make a backup of your current Neovim files
 ### required
-`mv ~/.config/nvim{,.bak}`
+`mv ~/.config/nvim %your backup path%`
 ### optional but recommended
-`mv ~/.local/share/nvim{,.bak}` <br>
-`mv ~/.local/state/nvim{,.bak}` <br>
-`mv ~/.cache/nvim{,.bak}` <br>
+`mv ~/.local/share/nvim %your backup path%` <br>
+`mv ~/.local/state/nvim %your backup path%` <br>
+`mv ~/.cache/nvim %your backup path%` <br>
 - Clone the starter <br> 
 `git clone https://github.com/LazyVim/starter ~/.config/nvim`
 - Remove the `.git` folder so you can copy it like this yourself later <br> 

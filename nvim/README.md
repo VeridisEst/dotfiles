@@ -26,7 +26,7 @@ Also it may change in the future. Who knows!
 - Start Neovim! <br> 
 `nvim`
 - Ignore all the errors
-- Download only this folder
+- Download only this folder <br> 
 `git clone --filter=blob:none --sparse https://github.com/VeridisEst/dotfiles` <br>
 `cd dotfiles` <br>
 `git sparse-checkout add nvim` <br>

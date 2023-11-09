@@ -31,4 +31,9 @@ Also it may change in the future. Who knows!
 `cd dotfiles` <br>
 `git sparse-checkout add nvim` <br>
 `cp -r nvim ~/.config/nvim` 
-- Succes! 
+- Succes!
+// Why the complicated git clone?
+// I wanted to be able to download just this github folder: /dotfiles/nvim and not everything/
+// Well, this downloads the entire repo, but only metadata, so it doesn't take space or bandwith
+// and then it downloads only the nvim folder!
+// Great success! 

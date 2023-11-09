@@ -12,7 +12,8 @@ Also it may change in the future. Who knows!
 
 ## How to use 
 - Install the latest version of nvim, this requires at least 0.9 <br> 
-`https://github.com/neovim/neovim` has instructions
+`https://github.com/neovim/neovim` has instructions <br>
+or the bottom of this page
 - Make a backup of your current Neovim files
 ### required
 `mv ~/.config/nvim %your backup path%`
@@ -45,3 +46,15 @@ I wanted to be able to download just this github folder: `/dotfiles/nvim` and no
 Well, this downloads the entire repo, but only metadata, so it doesn't take space or bandwith <br> 
 and then it downloads only the nvim folder! <br> 
 Great success! 
+
+## installing nvim 0.9>
+`wget https://github.com/neovim/neovim-releases/releases/download/nightly/nvim-linux64.deb` <br> 
+`sudo apt install ./nvim-linux64.deb` <br> 
+If you already had an nvim install, you may get an error with a 'broken pipe' <br> 
+Solve this by using: 
+`sudo dpkg -i --force-overwrite %your folder/nvim-linux64.deb%`<br>
+and then <br> 
+`sudo apt -f install` <br>
+Sometimes it is easy, sometimes it is hard. The linux gods are fickle creatures.
+
+

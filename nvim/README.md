@@ -30,5 +30,5 @@ Also it may change in the future. Who knows!
 `git clone --filter=blob:none --sparse https://github.com/VeridisEst/dotfiles` <br>
 `cd dotfiles` <br>
 `git sparse-checkout add nvim` <br>
-`cp nvim ~/.config/nvim` 
+`cp -r nvim ~/.config/nvim` 
 - Succes! 

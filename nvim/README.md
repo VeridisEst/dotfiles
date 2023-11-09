@@ -38,7 +38,7 @@ If stuck in vim, use `esc :q!`
 `git clone --filter=blob:none --sparse https://github.com/VeridisEst/dotfiles` <br>
 `cd dotfiles` <br>
 `git sparse-checkout add nvim` <br>
-`cp -r nvim ~/.config/nvim` 
+`cp -r nvim ~/.config/` 
 - Succes!
   
 Why the complicated git clone? <br>

@@ -31,6 +31,7 @@ If not: check your steps
 - Ignore all the errors in vim
 > NOTE: If you have any errors before this that are in your command line, google the errors, they are not part of this guide. All errors should be in vim itself.
 - Close vim <br>
+If stuck in lazy.vim, just press `q` a couple of times <br>
 If stuck in vim, use `esc :q!`
 - Download only this folder <br> 
 `git clone --filter=blob:none --sparse https://github.com/VeridisEst/dotfiles` <br>

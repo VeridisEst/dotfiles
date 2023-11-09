@@ -26,6 +26,6 @@ Also it may change in the future. Who knows!
 - Start Neovim! <br> 
 `nvim`
 - Ignore all the errors
-- Clone this dotfile to yours in: <br> 
+- Clone all the above files to your: <br> 
 `~/.config/nvim`
 - Succes! 

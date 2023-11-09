@@ -10,8 +10,9 @@ sudo apt upgrade
 sudo apt install \
 	git \
 	gh \
-	wget make
-#neovim \
+	wget \
+ 	make
+#neovim 
 
 #installing neovim v0.10 from the releases file
 wget https://github.com/neovim/neovim-releases/releases/download/nightly/nvim-linux64.deb

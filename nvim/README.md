@@ -26,6 +26,9 @@ Also it may change in the future. Who knows!
 - Start Neovim! <br> 
 `nvim`
 - Ignore all the errors
-- Clone all the above files to your: <br> 
-`~/.config/nvim`
+- Download only this folder
+`git clone --filter=blob:none --sparse https://github.com/VeridisEst/dotfiles` <br>
+`cd dotfiles` <br>
+`git sparse-checkout add nvim` <br>
+`cp nvim ~/.config/nvim` 
 - Succes! 

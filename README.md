@@ -5,7 +5,7 @@ Moved computers too much and I like my things standard.
 
 ## contains
 
-- nvim init (lazy nvim with WSL support)
+- nvim init (lazy nvim with WSL support) <br>
   When using outside of WSL try the nvim_other (only change is a clipboard dependency)
 - Debian startup script
 

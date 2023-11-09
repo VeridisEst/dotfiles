@@ -19,13 +19,13 @@ Also it may change in the future. Who knows!
 `mv ~/.local/share/nvim{,.bak}
 mv ~/.local/state/nvim{,.bak}
 mv ~/.cache/nvim{,.bak}`
-- Clone the starter
+- Clone the starter <br> 
 `git clone https://github.com/LazyVim/starter ~/.config/nvim`
-- Remove the `.git` folder so you can copy it like this yourself later
+- Remove the `.git` folder so you can copy it like this yourself later <br> 
 `rm -rf ~/.config/nvim/.git`
-- Start Neovim!
+- Start Neovim! <br> 
 `nvim`
 - Ignore all the errors
-- Clone this dotfile to yours in: 
+- Clone this dotfile to yours in: <br>  
 `~/.config/nvim`
 - Succes! 

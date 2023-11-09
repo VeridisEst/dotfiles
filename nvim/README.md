@@ -11,7 +11,7 @@ It's not very different frome the standard, don't get me wrong. I mainly added a
 Also it may change in the future. Who knows! 
 
 ## How to use 
-- Install the latest version of nvim, this requires at least 0.9
+- Install the latest version of nvim, this requires at least 0.9 <br> 
 `https://github.com/neovim/neovim` has instructions
 - Make a backup of your current Neovim files
 ### required

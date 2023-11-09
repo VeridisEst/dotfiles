@@ -16,9 +16,9 @@ Also it may change in the future. Who knows!
 ### required
 `mv ~/.config/nvim{,.bak}`
 ### optional but recommended
-`mv ~/.local/share/nvim{,.bak}
-mv ~/.local/state/nvim{,.bak}
-mv ~/.cache/nvim{,.bak}`
+`mv ~/.local/share/nvim{,.bak}` <br>
+`mv ~/.local/state/nvim{,.bak}` <br>
+`mv ~/.cache/nvim{,.bak}` <br>
 - Clone the starter <br> 
 `git clone https://github.com/LazyVim/starter ~/.config/nvim`
 - Remove the `.git` folder so you can copy it like this yourself later <br> 

@@ -34,7 +34,7 @@ If not: check your steps
 - Close vim <br>
 If stuck in lazy.vim, just press `q` a couple of times <br>
 If stuck in vim, use `esc :q!`
-- Download only this folder <br> 
+- Download only this folder using the following commands (on seperate lines) <br> 
 `git clone --filter=blob:none --sparse https://github.com/VeridisEst/dotfiles` <br>
 `cd dotfiles` <br>
 `git sparse-checkout add nvim` <br>

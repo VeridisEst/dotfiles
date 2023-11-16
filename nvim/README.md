@@ -65,3 +65,11 @@ Sometimes it is easy, sometimes it is hard. The linux gods are fickle creatures.
 # TODO
 Add how to install a lazyfont<br>
 Idea: just an install script (it works!)
+link: [nerdfont-downloads](https://www.nerdfonts.com/font-downloads)
+howto:
+- Download
+- unzip and copy to ~/.fonts 
+- run `fc-cache -fv` to manually rebuild
+
+or do scriptie
+

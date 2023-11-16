@@ -5,7 +5,7 @@
 -- Some OS detectors
 local is_wsl = vim.fn.has("wsl") == 1
 -- local is_mac = vim.fn.has("macunix") == 1
--- local is_linux = not is_wsl and not is_mac
+local is_linux = not is_wsl -- and not is_mac
 
 local opt = vim.opt
 
@@ -30,5 +30,21 @@ if is_wsl then
       ["*"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
     },
     cache_enabled = 0,
+  }
+end
+
+-- Linux clipboard support
+if is_linux then
+  -- Not sure yet how to go about This
+  vim.g.clipboard = {
+    name = "OSC 52",
+    copy = {
+      ["+"] = require("vim.ui.clipboard.osc52").copy,
+      ["*"] = require("vim.ui.clipboard.osc52").copy,
+    },
+    paste = {
+      ["+"] = require("vim.ui.clipboard.osc52").paste,
+      ["*"] = require("vim.ui.clipboard.osc52").paste,
+    },
   }
 end

@@ -62,4 +62,6 @@ and then <br>
 `sudo apt -f install` <br>
 Sometimes it is easy, sometimes it is hard. The linux gods are fickle creatures.
 
-
+# TODO
+Add how to install a lazyfont<br>
+Idea: just an install script (it works!)

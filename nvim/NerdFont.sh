@@ -5,4 +5,6 @@ echo "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrains
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip
 unzip JetBrainsMono.zip -d ~/.fonts
 fc-cache -fv
+echo "Removing the .zip"
+rm JetBrainsMono.zip -y
 echo "done!"

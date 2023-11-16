@@ -21,6 +21,11 @@ or the bottom of this page
 `mv ~/.local/share/nvim %your backup path%` <br>
 `mv ~/.local/state/nvim %your backup path%` <br>
 `mv ~/.cache/nvim %your backup path%` <br>
+### debug
+there can also be files in the /.local files.<br>
+so, for good measure:<br>
+'rm -rf ~/.local/share/nvim' or<br>
+'mv ~/.local/share/nvim %your backup path&'<br>
 - Clone the starter <br> 
 `git clone https://github.com/LazyVim/starter ~/.config/nvim`
 - Remove the `.git` folder so you can copy it like this yourself later <br> 

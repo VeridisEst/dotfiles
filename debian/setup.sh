@@ -11,13 +11,17 @@ sudo apt install \
 	git \
 	gh \
 	wget \
- 	make
-#neovim 
+	ripgrep \
+	firefox \
+	make
+#neovim
 
 #installing neovim v0.10 from the releases file
 wget https://github.com/neovim/neovim-releases/releases/download/nightly/nvim-linux64.deb
 sudo apt install ./nvim-linux64.deb
 #bingo!
+
+TODO automatically add dotfiles to nvim dot
 
 # TODO Figure out what more I use standard..
 # TODO see if I use any non standard software, like, usually

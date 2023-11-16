@@ -45,6 +45,8 @@ If stuck in vim, use `esc :q!`
 `git sparse-checkout add nvim` <br>
 `cp -r nvim ~/.config/` 
 - Succes!
+
+TODO: add update function
   
 Why the complicated git clone? <br>
 I wanted to be able to download just this github folder: `/dotfiles/nvim` and not everything <br> 
@@ -66,10 +68,17 @@ Sometimes it is easy, sometimes it is hard. The linux gods are fickle creatures.
 Add how to install a lazyfont<br>
 Idea: just an install script (it works!)
 link: [nerdfont-downloads](https://www.nerdfonts.com/font-downloads)
-howto:
+link: [nerdfonts-everything](https://github.com/ryanoasis/nerd-fonts/blob/master/readme.md)
+howto: 
 - Download
 - unzip and copy to ~/.fonts 
 - run `fc-cache -fv` to manually rebuild
 
 or do scriptie
+tried to do script with a list of fonts and selectable and stuff, but by god that's impossible with the amount of names and links and standard updates
+
+don't forget chmod +x script
+
+TODO: possible cron additions?
+
 

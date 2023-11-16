@@ -14,3 +14,8 @@ With a seperate installation instruction <br>
 With a seperate goal/program <br> 
 There should be no inherent dependencies between folders <br>
 Use this to your advantage <br>
+
+# TODO
+
+TODO: add crontab possibilities or script
+Keep everything up to date with this automatically all the time forever

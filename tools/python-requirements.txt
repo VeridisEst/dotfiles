@@ -1,0 +1,4 @@
+python-lsp-server==1.12.2
+python-lsp-black==2.0.0
+black==25.1.0
+pyflakes==3.3.2

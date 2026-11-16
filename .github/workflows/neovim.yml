@@ -1,0 +1,21 @@
+name: Neovim install
+on:
+  push:
+    paths: ['nvim/**', 'scripts/**', 'tools/**', 'tests/**', 'document-template/**', 'install.sh', '.github/workflows/neovim.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    container: debian:${{ matrix.debian }}
+    strategy:
+      fail-fast: false
+      matrix:
+        debian: ['12', '13']
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install, verify language servers and reinstall safely
+        shell: bash
+        run: bash tests/install.sh

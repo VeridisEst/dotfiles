@@ -1,84 +1,60 @@
-# 💤 LazyVim
+# Bediening
 
-A starter template for [LazyVim](https://github.com/LazyVim/LazyVim).
-Refer to the [documentation](https://lazyvim.github.io/installation) to get started.
+De leader-toets is **Spatie**. Druk hem in normale modus in en wacht kort voor de beschikbare combinaties.
 
-Also: the website [lazyvim.org](https://www.lazyvim.org/)
+| Toetsen | Actie |
+| --- | --- |
+| Spatie ? | Deze handleiding |
+| Spatie w | Opslaan |
+| Spatie e | Bestandsverkenner |
+| Spatie f f | Bestand zoeken vanaf huidige map |
+| Spatie f g | Tekst zoeken vanaf huidige map |
+| Spatie f b | Wisselen tussen open bestanden |
+| Spatie n o | Documentenoverzicht |
+| Spatie n f | Bestand zoeken in documenten |
+| Spatie n g | Tekst zoeken in documenten |
+| Spatie n j | Dagboek vandaag |
+| Spatie n w | Huidige weekplanning |
+| Spatie t w | Werktaken rechts openen/sluiten |
+| Spatie t p | Privétaken rechts openen/sluiten |
+| Spatie t t | Taak onder cursor afvinken/terugzetten |
+| Ctrl-w h/l | Naar linker/rechter venster |
+| gf | Bestandspad/link onder cursor openen |
+| Ctrl-o | Terug naar vorige locatie |
+| z= | Spellingssuggesties |
+| zg | Woord aan eigen woordenboek toevoegen |
+| ]s / [s | Volgende/vorige spellingsmarkering |
+| Spatie u s | Spelling aan/uit |
+| Spatie u a | Automatische haakjes aan/uit |
+| Spatie u f | Formatteren bij opslaan aan/uit |
+| Spatie c f | Code formatteren met actieve taalserver |
+| Spatie c a | Codeactie kiezen |
+| Spatie c r | Symbool hernoemen |
+| Spatie c d | Foutmelding bij cursor |
+| gd / K | Definitie / uitleg van code |
 
-## What I did
+In invoermodus: Ctrl-Space vraagt aanvullingen; Ctrl-n/p selecteert, Ctrl-y bevestigt, Ctrl-e sluit de lijst. Enter bevestigt alleen als je bewust een optie geselecteerd hebt; anders maak je gewoon een nieuwe regel. Tab blijft normaal inspringen. Snippets uit taalservers gebruiken Neovims ingebouwde snippetondersteuning.
 
-It's not very different frome the standard, don't get me wrong. I mainly added a plugin, but it's mine and I don't like change.
-Also it may change in the future. Who knows! 
+## Schrijven
 
-## How to use 
-- Install the latest version of nvim, this requires at least 0.9 <br> 
-`https://github.com/neovim/neovim` has instructions <br>
-or the bottom of this page
-- Make a backup of your current Neovim files
-### required
-`mv ~/.config/nvim %your backup path%`
-### optional but recommended
-`mv ~/.local/share/nvim %your backup path%` <br>
-`mv ~/.local/state/nvim %your backup path%` <br>
-`mv ~/.cache/nvim %your backup path%` <br>
-### debug
-there can also be files in the /.local files.<br>
-so, for good measure:<br>
-`rm -rf ~/.local/share/nvim` or<br>
-`mv ~/.local/share/nvim %your backup path&`<br>
-- Clone the starter <br> 
-`git clone https://github.com/LazyVim/starter ~/.config/nvim`
-- Remove the `.git` folder so you can copy it like this yourself later <br> 
-`rm -rf ~/.config/nvim/.git`
-- Start Neovim! <br> 
-`nvim`
-- It should look different already! <br>
-If not: check your steps
-- Ignore all the errors in vim
-> NOTE: If you have any errors before this that are in your command line, google the errors, they are not part of this guide. All errors should be in vim itself.
-- Close vim <br>
-If stuck in lazy.vim, just press `q` a couple of times <br>
-If stuck in vim, use `esc :q!`
-- Download only this folder using the following commands (on seperate lines) <br> 
-`git clone --filter=blob:none --sparse https://github.com/VeridisEst/dotfiles` <br>
-`cd dotfiles` <br>
-`git sparse-checkout add nvim` <br>
-`cp -r nvim ~/.config/` 
-- Succes!
+Markdown en tekst hebben NL/EN-spelling en visuele regelafbreking. Lange alinea’s krijgen geen automatische harde regeleinden. j/k volgen zichtbare regels; een aantal ervoor, zoals 3j, blijft echte regels volgen. Beide talen tegelijk betekent dat een geldig Engels woord niet als Nederlandse fout wordt gemarkeerd.
 
-TODO: add update function
-  
-Why the complicated git clone? <br>
-I wanted to be able to download just this github folder: `/dotfiles/nvim` and not everything <br> 
-Well, this downloads the entire repo, but only metadata, so it doesn't take space or bandwith <br> 
-and then it downloads only the nvim folder! <br> 
-Great success! 
+Er zijn precies twee takenlijsten: werk/taken.md en prive/taken.md. Schrijf een taak als `- [ ] Tekst`. Projecten, weekplanning en dagboek verwijzen naar die lijsten. Nieuwe dagboek- of weekdocumenten zijn nog niet opgeslagen: gebruik Spatie w.
 
-## installing nvim 0.9>
-`wget https://github.com/neovim/neovim-releases/releases/download/nightly/nvim-linux64.deb` <br> 
-`sudo apt install ./nvim-linux64.deb` <br> 
-If you already had an nvim install, you may get an error with a 'broken pipe' <br> 
-Solve this by using: 
-`sudo dpkg -i --force-overwrite %your folder/nvim-linux64.deb%`<br>
-and then <br> 
-`sudo apt -f install` <br>
-Sometimes it is easy, sometimes it is hard. The linux gods are fickle creatures.
+De verkenner (mini.files) verschijnt als kolommen, niet als permanente boom. Met h/l ga je omhoog/naar binnen, q sluit de verkenner. Bestandswijzigingen in de verkenner worden met = gesynchroniseerd na bevestiging. Dat betreft lokale bestanden, geen GitHub-synchronisatie.
 
-# TODO
-Add how to install a lazyfont<br>
-Idea: just an install script (it works!)
-link: [nerdfont-downloads](https://www.nerdfonts.com/font-downloads)
-link: [nerdfonts-everything](https://github.com/ryanoasis/nerd-fonts/blob/master/readme.md)
-howto: 
-- Download
-- unzip and copy to ~/.fonts 
-- run `fc-cache -fv` to manually rebuild
+## Code
 
-or do scriptie
-tried to do script with a list of fonts and selectable and stuff, but by god that's impossible with the amount of names and links and standard updates
+Python gebruikt pylsp, Black en Pyflakes; Ruby gebruikt Solargraph en RuboCop. Bij opslaan wordt alleen de opmaak aangepast. Foutmeldingen verschijnen als tekens in de marge; Spatie c d toont uitleg. Logische fouten worden niet stilzwijgend gecorrigeerd. Projectinstellingen kunnen de formattering beïnvloeden. Taalservers zien de geïnstalleerde omgeving; voor projectspecifieke Python-pakketten of Ruby-bundles kan aanvullende configuratie nodig zijn.
 
-don't forget chmod +x script
+## Documenten en synchronisatie
 
-TODO: possible cron additions?
+`~/documenten` is standaard; NVIM_DOCUMENTS kan het pad veranderen. De installatie voegt ontbrekende sjablonen toe maar haalt geen persoonlijke bestanden op. Gebruik het aparte connect-documents.sh-script om de private repository te klonen. Git pull/commit/push doe je bewust zelf; er is geen verborgen automatische synchronisatie.
 
+## Problemen
 
+- `:checkhealth` controleert voorzieningen. `:messages` toont fouten.
+- Controleer bij ontbrekende taalhulp of je de launcher `~/.local/bin/nvim` gebruikt en niet met `--no-tools` hebt geïnstalleerd.
+- De spellingbestanden worden tijdens installatie gedownload en gecontroleerd. Bij een checksumfout stopt de installer; controleer de bron voordat je de checksum bijwerkt.
+- Gebruik via SSH de plaktoets van je terminal. OSC 52-kopiëren vereist terminalondersteuning.
+- Eigen wijzigingen aan deze configuratie eerst in Git bewaren; herinstallatie bewaart daarnaast een reservekopie.

@@ -1,0 +1,9 @@
+{
+  "hrsh7th/cmp-path": "c642487086dbd9a93160e1679a1327be111cbc25",
+  "hrsh7th/nvim-cmp": "fe29aba4117227a6df637bc41e4b4fb4e98864a0",
+  "hrsh7th/cmp-buffer": "b74fab3656eea9de20a9b8116afa3cfc4ec09657",
+  "nvim-mini/mini.nvim": "174eb9b9d5d66254966b9d52ea51b996317e51f6",
+  "windwp/nvim-autopairs": "3172f40c16563db871a58f20d205c710ad782311",
+  "f3fora/cmp-spell": "694a4e50809d6d645c1ea29015dad0c293f019d6",
+  "hrsh7th/cmp-nvim-lsp": "cd4ee08a988deb47ac3726f418fb27fe1a95729d"
+}

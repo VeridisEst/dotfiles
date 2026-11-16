@@ -15,7 +15,7 @@ local ok, err = xpcall(function()
     }, 30000, 0)
     assert(response and not response.err, sample[2] .. " formatting: " .. vim.inspect(response or reason))
     assert(type(response.result) == "table" and #response.result > 0, sample[2] .. " returned no formatting edits")
-    vim.lsp.util.apply_text_edits(response.result, 0, client.offset_encoding)
+    vim.lsp.util.apply_text_edits(response.result, vim.api.nvim_get_current_buf(), client.offset_encoding)
     assert(vim.api.nvim_get_current_line() ~= sample[3], sample[2] .. " did not format")
     vim.bo.modified = false
     vim.cmd("enew")

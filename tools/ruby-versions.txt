@@ -1,3 +1,0 @@
-bundler 2.5.23
-rubocop 1.75.5
-solargraph 0.54.0

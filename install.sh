@@ -48,7 +48,7 @@ fi
 source_dir=$(cd "$source_dir" && pwd)
 [[ -f $source_dir/nvim/plugins.json && -d $source_dir/document-template ]] || { echo 'Incomplete source checkout.' >&2; exit 1; }
 version=v0.12.6
-release_id=$(cat "$source_dir/nvim/plugins.json" "$source_dir/tools/python-requirements.txt" "$source_dir/tools/ruby-versions.txt" | sha256sum | cut -c1-16)
+release_id=$(cat "$source_dir/nvim/plugins.json" "$source_dir/tools/python-requirements.txt" "$source_dir/tools/Gemfile" | sha256sum | cut -c1-16)
 release=$prefix/releases/$version-$release_id-tools$tools
 if [[ ! -f $release/READY ]]; then
   stage=$scratch/release
@@ -70,19 +70,18 @@ if [[ ! -f $release/READY ]]; then
     python3 -m venv "$release/python"
     "$release/python/bin/pip" install --disable-pip-version-check -r "$source_dir/tools/python-requirements.txt"
     "$release/python/bin/pip" freeze > "$release/python-installed.txt"
-    mkdir -p "$release/gems"
-    while read -r name gem_version; do
-      GEM_HOME="$release/gems" GEM_PATH="$release/gems" gem install "$name" --version "$gem_version" --no-document --install-dir "$release/gems" --bindir "$release/gems/bin"
-    done < "$source_dir/tools/ruby-versions.txt"
-    GEM_HOME="$release/gems" GEM_PATH="$release/gems" gem list --local > "$release/ruby-installed.txt"
+    mkdir -p "$release/gems" "$release/ruby" "$release/ruby-bin"
+    GEM_HOME="$release/gems" GEM_PATH="$release/gems" gem install bundler --version 2.5.23 --no-document --install-dir "$release/gems" --bindir "$release/gems/bin"
+    cp "$source_dir/tools/Gemfile" "$release/ruby/Gemfile"
+    GEM_HOME="$release/gems" GEM_PATH="$release/gems" BUNDLE_GEMFILE="$release/ruby/Gemfile" BUNDLE_PATH="$release/gems" "$release/gems/bin/bundle" _2.5.23_ install
+    python3 "$source_dir/scripts/write-ruby-launchers.py" "$release"
   fi
   touch "$release/READY"
 fi
 mkdir -p "$scratch/config/veridis-nvim"
 cp -a "$source_dir/nvim/." "$scratch/config/veridis-nvim/"
 export NVIM_APPNAME=veridis-nvim VERIDIS_RELEASE="$release"
-export PATH="$release/python/bin:$release/gems/bin:$PATH"
-if ((tools)); then export GEM_HOME="$release/gems" GEM_PATH="$release/gems"; fi
+export PATH="$release/python/bin:$release/ruby-bin:$PATH"
 XDG_CONFIG_HOME="$scratch/config" NVIM_DOCUMENTS="$scratch/test-docs" "$release/neovim/bin/nvim" --headless -i NONE "+luafile $source_dir/tests/smoke.lua"
 backup_suffix=$(date +%Y%m%d-%H%M%S).$$
 if [[ -e $config || -L $config ]]; then

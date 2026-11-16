@@ -1,4 +1,4 @@
 source "https://rubygems.org"
-ruby ">= 3.1"
+ruby ">= 3.0"
 gem "solargraph", "0.54.0"
 gem "rubocop", "1.75.5"

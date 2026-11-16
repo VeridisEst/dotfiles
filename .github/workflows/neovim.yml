@@ -8,11 +8,11 @@ permissions:
 jobs:
   install:
     runs-on: ubuntu-latest
-    container: debian:${{ matrix.debian }}
+    container: ${{ matrix.image }}
     strategy:
       fail-fast: false
       matrix:
-        debian: ['12', '13']
+        image: ['debian:12', 'debian:13', 'ubuntu:22.04', 'ubuntu:24.04']
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4

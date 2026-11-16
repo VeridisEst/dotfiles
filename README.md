@@ -10,7 +10,19 @@ Voer dit uit als je gewone gebruiker in Debian/WSL, met Bash en curl beschikbaar
 bash <(curl -fsSL https://raw.githubusercontent.com/VeridisEst/dotfiles/main/install.sh)
 ```
 
-De installer vraagt zo nodig je sudo-wachtwoord voor systeempakketten. Hij installeert Neovim **v0.12.6**, zeven plugins op exacte commits, NL/EN-spelling, Python/Ruby-taalhulpmiddelen en een lege documentstructuur in `~/documenten`. Het downloaden kan enkele minuten duren. Start daarna met `~/.local/bin/nvim`; in een nieuwe login-shell werkt `nvim` als `~/.local/bin` vooraan in PATH staat. Bij een bestaande alias of shellfunctie voor nvim: verwijder die zelf of gebruik het volledige pad.
+De installer vraagt zo nodig je sudo-wachtwoord voor systeempakketten. Hij installeert eerst Neovim **v0.12.6**, zeven plugins op exacte commits, NL/EN-spelling en een lege documentstructuur in `~/documenten`. Zodra **EDITOR KLAAR** verschijnt, werkt `~/.local/bin/nvim`. Daarna volgt de grotere installatie van Python/Ruby-codehulp. Een fout daarbij laat de editor bruikbaar en geeft een niet-nul foutcode terug.
+
+In een nieuwe Bash-terminal staat `~/.local/bin` vooraan in PATH. Voor de huidige terminal: `export PATH="$HOME/.local/bin:$PATH"; hash -r`. Een installatiescript kan het zoekpad van zijn bovenliggende shell niet aanpassen. Bij een bestaande alias of shellfunctie voor nvim gebruik je het volledige pad of pas je die zelf aan.
+
+Wil je eerst alleen schrijven en bestanden bewerken, zonder de zware programmeerhulpmiddelen?
+
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/VeridisEst/dotfiles/main/install.sh) --no-tools
+```
+
+De basis heeft zeven kleine plugins. De meeste extra pakketten horen bij Python/Ruby, taalservers en het bouwen van Ruby-afhankelijkheden. APT installeert alleen noodzakelijke afhankelijkheden (`--no-install-recommends`); Linux-klembordpakketten alleen bij een gedetecteerde grafische Linux-sessie, niet in WSL. Bestaande pakketten worden door APT hergebruikt. Er wordt geen algemene systeemupgrade uitgevoerd.
+
+Elke uitvoering schrijft een log in `~/.local/state/veridis-neovim/`. Bij een fout worden stap, foutcode en logpad getoond. Stuur de laatste regels van dat log voor diagnose. Herhaal het standaardcommando om later de codehulp toe te voegen of een afgebroken installatie te hervatten.
 
 De installer leest of schrijft **niet** in de private documentenrepository. Er is geen automatische pull, commit of push.
 
@@ -48,7 +60,7 @@ De launcher gebruikt `NVIM_APPNAME=veridis-nvim`. Je oude `~/.config/nvim` en ou
 
 ## Andere Linux-systemen, server en maatwerk
 
-Ondersteund: Linux x86_64/arm64 met een glibc die bij het officiële Neovim-archief past; geen Alpine/musl, macOS of native Windows-installer. Debian 12/13 is de testbasis. Op andere distributies installeer je zelf Git, curl, tar, gzip, Python 3.9+ met venv/pip, Ruby 3.1+ met gem en ontwikkelheaders, een C/C++-compiler, make, pkg-config, libyaml/libffi/zlib-headers en ripgrep. Gebruik daarna `--no-system`. Gebruik `--no-tools` voor een editor zonder geïnstalleerde Python/Ruby-taalservers.
+Ondersteund: Linux x86_64/arm64 met een glibc die bij het officiële Neovim-archief past; geen Alpine/musl, macOS of native Windows-installer. De testmatrix omvat Debian 12/13 en Ubuntu 22.04/24.04. Op andere distributies installeer je zelf Git, curl, tar, gzip, Python 3.9+ met venv/pip, Ruby 3.0+ met gem en ontwikkelheaders, een C/C++-compiler, make, pkg-config, libyaml/libffi/zlib-headers en ripgrep. Gebruik daarna `--no-system`. Gebruik `--no-tools` voor een editor zonder geïnstalleerde Python/Ruby-taalservers.
 
 ```bash
 bash <(curl -fsSL https://raw.githubusercontent.com/VeridisEst/dotfiles/main/install.sh) --no-system
@@ -68,6 +80,6 @@ Terugzetten: herstel je vorige launcher en de bijpassende `veridis-nvim.backup.*
 
 ## Tests
 
-`tests/smoke.lua` controleert opstarten, plugins, spelling, taken, inspringing en dubbele sluittekens. `tests/lsp.lua` start beide taalservers en vraagt echte formattering aan. `tests/install.sh` test een schone installatie, herinstallatie met behoud van documenten, configback-up en SSH-opstarten. De GitHub Actions-workflow draait deze tests op Debian 12 en 13. De WSL-Windows-klembordkoppeling en de terminalondersteuning voor OSC 52 moeten op het eigen apparaat worden gecontroleerd.
+`tests/smoke.lua` controleert opstarten, plugins, spelling, taken, inspringing en dubbele sluittekens. `tests/lsp.lua` start beide taalservers en vraagt echte formattering aan. `tests/install.sh` test een basisinstallatie, een bewust opgewekte codehulp-fout (code 73) waarbij Neovim moet blijven werken, herstel, herinstallatie met behoud van documenten, configback-up en SSH-opstarten. De GitHub Actions-workflow draait deze tests op Debian 12/13 en Ubuntu 22.04/24.04. Dit zijn Linux-containerproeven; de WSL-Windows-klembordkoppeling en de terminalondersteuning voor OSC 52 moeten op het eigen apparaat worden gecontroleerd.
 
 De map `debian/` bevat het oude algemene setupscript en is geen onderdeel van deze nieuwe installer.

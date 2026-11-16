@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -Eeuo pipefail
+phase=voorbereiding
+scratch=
+log_dir=${XDG_STATE_HOME:-"$HOME/.local/state"}/veridis-neovim
+mkdir -p "$log_dir"
+log_file=$log_dir/install-$(date +%Y%m%d-%H%M%S).$$.log
+exec > >(tee -a "$log_file") 2>&1
+trap 'code=$?; echo "INSTALLATIE MISLUKT: stap=$phase, foutcode=$code, regel=$LINENO" >&2; echo "Log: $log_file" >&2; exit "$code"' ERR
+trap 'if [[ -n $scratch ]]; then rm -rf -- "$scratch"; fi' EXIT
 
 ref=main
 source_dir=
@@ -24,13 +32,18 @@ case $(uname -m) in
   *) echo 'Supported architectures: x86_64 and arm64.' >&2; exit 1 ;;
 esac
 if ((system_deps)); then
+  phase=basispakketten
+  echo '[1/4] Alleen de basisbenodigdheden voor Neovim installeren.'
   command -v apt-get >/dev/null || { echo 'Non-Debian Linux: install dependencies from README, then use --no-system.' >&2; exit 1; }
   sudo_cmd=()
   if ((EUID != 0)); then sudo_cmd=(sudo); fi
   "${sudo_cmd[@]}" apt-get update
-  packages=(ca-certificates git curl tar gzip python3 ripgrep wl-clipboard xclip)
-  if ((tools)); then packages+=(python3-venv ruby ruby-dev build-essential libyaml-dev libffi-dev zlib1g-dev pkg-config); fi
-  "${sudo_cmd[@]}" apt-get install -y "${packages[@]}"
+  packages=(ca-certificates git curl tar gzip python3 ripgrep)
+  if ! grep -qi microsoft /proc/sys/kernel/osrelease; then
+    if [[ -n ${WAYLAND_DISPLAY:-} ]]; then packages+=(wl-clipboard); fi
+    if [[ -n ${DISPLAY:-} ]]; then packages+=(xclip); fi
+  fi
+  "${sudo_cmd[@]}" apt-get install -y --no-install-recommends "${packages[@]}"
 fi
 for executable in git curl tar python3 sha256sum; do
   command -v "$executable" >/dev/null || { echo "Missing dependency: $executable" >&2; exit 1; }
@@ -40,7 +53,7 @@ config_base=${XDG_CONFIG_HOME:-"$HOME/.config"}
 config=$config_base/veridis-nvim
 mkdir -p "$prefix/releases" "$config_base" "$HOME/.local/bin"
 scratch=$(mktemp -d "$prefix/install.XXXXXXXX")
-trap 'rm -rf -- "$scratch"' EXIT
+phase=bronbestanden
 if [[ -z $source_dir ]]; then
   git clone --quiet --depth 1 --branch "$ref" https://github.com/VeridisEst/dotfiles.git "$scratch/source"
   source_dir=$scratch/source
@@ -49,8 +62,10 @@ source_dir=$(cd "$source_dir" && pwd)
 [[ -f $source_dir/nvim/plugins.json && -d $source_dir/document-template ]] || { echo 'Incomplete source checkout.' >&2; exit 1; }
 version=v0.12.6
 release_id=$(cat "$source_dir/nvim/plugins.json" "$source_dir/tools/python-requirements.txt" "$source_dir/tools/Gemfile" | sha256sum | cut -c1-16)
-release=$prefix/releases/$version-$release_id-tools$tools
-if [[ ! -f $release/READY ]]; then
+release=$prefix/releases/$version-$release_id-phased
+phase=neovim-en-plugins
+echo '[2/4] Neovim, vaste pluginversies en spelling installeren.'
+if [[ ! -f $release/CORE_READY ]]; then
   stage=$scratch/release
   mkdir -p "$stage/site/spell"
   curl --fail --location --retry 3 "https://github.com/neovim/neovim/releases/download/$version/nvim-linux-$arch.tar.gz" -o "$scratch/nvim.tar.gz"
@@ -66,18 +81,10 @@ if [[ ! -f $release/READY ]]; then
   # Virtualenv scripts embed absolute paths: move before installing tools.
   [[ ! -e $release ]] || mv "$release" "$release.incomplete.$(date +%s).$$"
   mv "$stage" "$release"
-  if ((tools)); then
-    python3 -m venv "$release/python"
-    "$release/python/bin/pip" install --disable-pip-version-check -r "$source_dir/tools/python-requirements.txt"
-    "$release/python/bin/pip" freeze > "$release/python-installed.txt"
-    mkdir -p "$release/gems" "$release/ruby" "$release/ruby-bin"
-    GEM_HOME="$release/gems" GEM_PATH="$release/gems" gem install bundler --version 2.5.23 --no-document --install-dir "$release/gems" --bindir "$release/gems/bin"
-    cp "$source_dir/tools/Gemfile" "$release/ruby/Gemfile"
-    GEM_HOME="$release/gems" GEM_PATH="$release/gems" BUNDLE_GEMFILE="$release/ruby/Gemfile" BUNDLE_PATH="$release/gems" "$release/gems/bin/bundle" _2.5.23_ install
-    python3 "$source_dir/scripts/write-ruby-launchers.py" "$release"
-  fi
-  touch "$release/READY"
+  touch "$release/CORE_READY"
 fi
+phase=editor-activeren
+echo '[3/4] Editor testen, startcommando activeren en documentstructuur aanvullen.'
 mkdir -p "$scratch/config/veridis-nvim"
 cp -a "$source_dir/nvim/." "$scratch/config/veridis-nvim/"
 export NVIM_APPNAME=veridis-nvim VERIDIS_RELEASE="$release"
@@ -91,12 +98,24 @@ fi
 mv "$scratch/config/veridis-nvim" "$config"
 python3 "$source_dir/scripts/seed-documents.py" "$source_dir/document-template" "$documents_dir"
 python3 "$source_dir/scripts/write-launcher.py" "$release" "$HOME/.local/bin/nvim" "$tools"
-if ! grep -q '^# veridis-neovim PATH$' "$HOME/.profile" 2>/dev/null; then
-  printf '\n# veridis-neovim PATH\nexport PATH="$HOME/.local/bin:$PATH"\n' >> "$HOME/.profile"
+for shell_file in "$HOME/.profile" "$HOME/.bashrc"; do
+  if ! grep -q '^# veridis-neovim PATH$' "$shell_file" 2>/dev/null; then
+    printf '\n# veridis-neovim PATH\nexport PATH="$HOME/.local/bin:$PATH"\n' >> "$shell_file"
+  fi
+done
+echo "EDITOR KLAAR: $version; documenten: $documents_dir"
+echo 'Je kunt nu al starten: ~/.local/bin/nvim'
+echo 'Voor nvim in deze bestaande terminal: export PATH="$HOME/.local/bin:$PATH"; hash -r'
+if ((tools)); then
+  phase=python-ruby-codehulp
+  echo '[4/4] Aanvullende Python/Ruby-codehulp. Dit is het grootste deel van de installatie.'
+  echo 'Als deze stap mislukt blijft de editor hierboven bruikbaar.'
+  bash "$source_dir/scripts/install-tools.sh" "$release" "$source_dir" "$system_deps"
+else
+  echo '[4/4] Codehulp overgeslagen (--no-tools).'
 fi
-echo "Installed $version; documents: $documents_dir"
-echo 'Start now: ~/.local/bin/nvim (or open a new login shell and use nvim).'
-echo 'No documents were downloaded, uploaded or synchronized.'
+echo "INSTALLATIE GESLAAGD. Log: $log_file"
+echo 'Er zijn geen persoonlijke documenten opgehaald, geupload of gesynchroniseerd.'
 if [[ $documents_dir != "$HOME/documenten" ]]; then
   printf 'Set NVIM_DOCUMENTS to your custom directory: %s\n' "$documents_dir"
 fi
